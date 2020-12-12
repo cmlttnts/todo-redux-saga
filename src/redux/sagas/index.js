@@ -4,6 +4,10 @@ import { APP_ACTIONS } from "redux/actions";
 import { REDUCER_ACTION_CREATORS } from "redux/actions/actionCreators";
 import { v4 as uuid } from "uuid";
 
+const HOUR_TO_MS = 3_600_000;
+
+const DAY_TO_MS = 24 * HOUR_TO_MS;
+
 function* fetchInitialTodos() {
   const result = yield call(API.fetchInitialTodosApi);
   const actionCreator = result.error
@@ -15,8 +19,12 @@ function* fetchInitialTodos() {
     result.data = result.data.map(post => {
       return {
         id: uuid(),
-        content: post.body,
-        isComplete: Math.random() > 0.5
+        // assing random timestamp in the last hour
+        createdAt: Date.now() - Math.random() * HOUR_TO_MS,
+        content: post.body.slice(0, 50),
+        isComplete: Math.random() > 0.5,
+        // assing random timestamp on the next day
+        deadline: Date.now() + Math.random() * DAY_TO_MS
       };
     });
   }
@@ -35,6 +43,7 @@ function* addTodo(action) {
   // jsonplaceholder would always return id:101, workaround that
   if (!result.error) {
     result.data.id = uuid();
+    result.data.createdAt = Date.now();
   }
   yield put(actionCreator(result.data));
 }

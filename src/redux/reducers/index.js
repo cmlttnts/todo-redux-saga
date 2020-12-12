@@ -6,6 +6,10 @@ const INIT_STATE = {
   errors: {
     init: false,
     update: false
+  },
+  isLoading: {
+    init: true,
+    update: false
   }
 };
 
@@ -14,9 +18,11 @@ export default function rootReducer(state = INIT_STATE, action) {
     switch (action.type) {
       case REDUCER_ACTIONS.INITAL_LOAD_SUCCESS:
         draft.todos = action.payload;
+        draft.isLoading.init = false;
         break;
       case REDUCER_ACTIONS.INITAL_LOAD_FAILURE:
         draft.errors.init = true;
+        draft.isLoading.init = false;
         break;
       case REDUCER_ACTIONS.ADD_TODO_SUCCESS:
         draft.todos.push(action.payload);
