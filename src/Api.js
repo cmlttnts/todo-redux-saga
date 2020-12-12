@@ -14,10 +14,10 @@ const API = {
   },
 
   async fetchInitialTodosApi() {
-    return this._fetch("https://jsonplaceholder.typicode.com/posts?_start=0&_limit=5");
+    return API._fetch("https://jsonplaceholder.typicode.com/posts?_start=0&_limit=5");
   },
   async addTodoApi(todo) {
-    return this._fetch("https://jsonplaceholder.typicode.com/posts", {
+    return API._fetch("https://jsonplaceholder.typicode.com/posts", {
       method: "POST",
       body: JSON.stringify(todo),
       headers: {
@@ -26,7 +26,7 @@ const API = {
     });
   },
   async toggleTodoApi(todo) {
-    return this._fetch(`https://jsonplaceholder.typicode.com/posts/${todo.id}`, {
+    return API._fetch(`https://jsonplaceholder.typicode.com/posts/${todo.id}`, {
       method: "PATCH",
       body: JSON.stringify({
         isComplete: todo.isComplete
@@ -36,8 +36,8 @@ const API = {
       }
     });
   },
-  async removeTodoApi(todo) {
-    return this._fetch(`https://jsonplaceholder.typicode.com/posts/${todo.id}`, {
+  async removeTodoApi(todoId) {
+    return API._fetch(`https://jsonplaceholder.typicode.com/posts/${todoId}`, {
       method: "DELETE"
     });
   }

@@ -23,6 +23,11 @@ export const APP_ACTION_CREATORS = {
       type: APP_ACTIONS.REMOVE_TODO_REQUEST,
       payload: todoId
     };
+  },
+  ackFailure() {
+    return {
+      type: APP_ACTIONS.ACKNOWLEDGE_UPDATE_FAILURE
+    };
   }
 };
 
@@ -48,10 +53,10 @@ export const REDUCER_ACTION_CREATORS = {
     };
   },
 
-  toggleTodoSuccess(todoId) {
+  toggleTodoSuccess(todo) {
     return {
       type: REDUCER_ACTIONS.TOGGLE_TODO_SUCCESS,
-      payload: todoId
+      payload: todo
     };
   },
 
@@ -65,6 +70,11 @@ export const REDUCER_ACTION_CREATORS = {
   updateTodoFailure() {
     return {
       type: REDUCER_ACTIONS.INITAL_LOAD_FAILURE
+    };
+  },
+  userAckFailure() {
+    return {
+      type: REDUCER_ACTIONS.USER_CONFIRMS_UPDATE_FAILURE
     };
   }
 };
