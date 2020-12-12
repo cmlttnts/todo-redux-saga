@@ -2,11 +2,8 @@ import API from "Api";
 import { call, fork, put, takeLatest } from "redux-saga/effects";
 import { APP_ACTIONS } from "redux/actions";
 import { REDUCER_ACTION_CREATORS } from "redux/actions/actionCreators";
+import { MS_TO_DAY, MS_TO_HOUR } from "utils";
 import { v4 as uuid } from "uuid";
-
-const HOUR_TO_MS = 3_600_000;
-
-const DAY_TO_MS = 24 * HOUR_TO_MS;
 
 function* fetchInitialTodos() {
   const result = yield call(API.fetchInitialTodosApi);
@@ -20,11 +17,11 @@ function* fetchInitialTodos() {
       return {
         id: uuid(),
         // assing random timestamp in the last hour
-        createdAt: Date.now() - Math.random() * HOUR_TO_MS,
+        createdAt: Date.now() - Math.random() * MS_TO_HOUR,
         content: post.body.slice(0, 50),
         isComplete: Math.random() > 0.5,
         // assing random timestamp on the next day
-        deadline: Date.now() + Math.random() * DAY_TO_MS
+        deadline: Date.now() + Math.random() * MS_TO_DAY
       };
     });
   }

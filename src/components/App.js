@@ -1,6 +1,8 @@
+import styled from "@emotion/styled";
 import { Spin } from "antd";
 import "antd/dist/antd.css";
-import Todo from "components/Todo";
+import "components/App.css";
+import Todos from "components/Todos";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { APP_ACTION_CREATORS } from "redux/actions/actionCreators";
@@ -19,18 +21,23 @@ const App = () => {
 
   if (isLoading.init) {
     return (
-      <div style={{ display: "grid", placeItems: "center", width: "100vw", height: "100vh" }}>
+      <LoadingContainerStyled>
         <Spin />;
-      </div>
+      </LoadingContainerStyled>
     );
   }
 
   return (
-    <div>
-      {todos.map(todo => (
-        <Todo key={todo.id} todo={todo} isLoading={isLoading.update} />
-      ))}
+    <div className="App">
+      <Todos />
     </div>
   );
 };
 export default App;
+
+const LoadingContainerStyled = styled.div`
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+`;
