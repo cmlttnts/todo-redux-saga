@@ -29,6 +29,7 @@ const API = {
     return API._fetch(`https://jsonplaceholder.typicode.com/posts/${todo.id}`, {
       method: "PATCH",
       body: JSON.stringify({
+        id: todo.id,
         isComplete: todo.isComplete
       }),
       headers: {

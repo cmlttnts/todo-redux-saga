@@ -24,7 +24,11 @@ export default function rootReducer(state = INIT_STATE, action) {
         draft.errors.init = true;
         draft.isLoading.init = false;
         break;
+      case REDUCER_ACTIONS.INITIATE_UPDATE_TODO:
+        draft.isLoading.update = true;
+        break;
       case REDUCER_ACTIONS.ADD_TODO_SUCCESS:
+        draft.isLoading.update = false;
         draft.todos.push(action.payload);
         break;
       case REDUCER_ACTIONS.TOGGLE_TODO_SUCCESS:
@@ -32,7 +36,15 @@ export default function rootReducer(state = INIT_STATE, action) {
         if (toggledTodo) toggledTodo.isComplete = action.payload.isComplete;
         else console.error("Non-existing todo toggling attempt");
         break;
+      case REDUCER_ACTIONS.TOGGLE_TODO_FAILURE:
+        const failedTodo = draft.todos.find(todo => todo.id === action.payload.id);
+        if (failedTodo) {
+          failedTodo.isComplete = !action.payload.isComplete;
+          draft.errors.update = true;
+        } else console.error("Non-existing todo toggling attempt");
+        break;
       case REDUCER_ACTIONS.REMOVE_TODO_SUCCESS:
+        draft.isLoading.update = false;
         const removedTodoIndex = draft.todos.findIndex(todo => todo.id === action.payload);
         if (removedTodoIndex > -1) draft.todos.splice(removedTodoIndex, 1);
         else console.error("Non-existing todo removal attempt");

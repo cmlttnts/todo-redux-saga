@@ -53,11 +53,13 @@ function* watchAddTodo() {
 }
 
 function* toggleTodo(action) {
+  // lets assume successful toggle first to increase reaction time
+  yield put(REDUCER_ACTION_CREATORS.toggleTodoSuccess(action.payload));
   const result = yield call(API.toggleTodoApi, action.payload);
-  const actionCreator = result.error
-    ? REDUCER_ACTION_CREATORS.updateTodoFailure
-    : REDUCER_ACTION_CREATORS.toggleTodoSuccess;
-  yield put(actionCreator(result.data));
+  if (result.error) {
+    // in case of error, we can revert it
+    yield put(REDUCER_ACTION_CREATORS.toggleTodoFailure(action.payload));
+  }
 }
 
 function* watchToggleTodo() {
@@ -65,6 +67,7 @@ function* watchToggleTodo() {
 }
 
 function* removeTodo(action) {
+  yield put(REDUCER_ACTION_CREATORS.initiateUpdateTodo());
   const result = yield call(API.removeTodoApi, action.payload);
   const actionCreator = result.error
     ? REDUCER_ACTION_CREATORS.updateTodoFailure

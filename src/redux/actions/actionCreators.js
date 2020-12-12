@@ -12,10 +12,10 @@ export const APP_ACTION_CREATORS = {
       payload: todo
     };
   },
-  requestToggleTodo(todoId) {
+  requestToggleTodo(todo) {
     return {
       type: APP_ACTIONS.TOGGLE_TODO_REQUEST,
-      payload: todoId
+      payload: todo
     };
   },
   requestRemoveTodo(todoId) {
@@ -46,6 +46,12 @@ export const REDUCER_ACTION_CREATORS = {
     };
   },
 
+  initiateUpdateTodo() {
+    return {
+      type: REDUCER_ACTIONS.INITIATE_UPDATE_TODO
+    };
+  },
+
   addTodoSuccess(todo) {
     return {
       type: REDUCER_ACTIONS.ADD_TODO_SUCCESS,
@@ -56,6 +62,12 @@ export const REDUCER_ACTION_CREATORS = {
   toggleTodoSuccess(todo) {
     return {
       type: REDUCER_ACTIONS.TOGGLE_TODO_SUCCESS,
+      payload: todo
+    };
+  },
+  toggleTodoFailure(todo) {
+    return {
+      type: REDUCER_ACTIONS.TOGGLE_TODO_FAILURE,
       payload: todo
     };
   },

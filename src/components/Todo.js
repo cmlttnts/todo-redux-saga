@@ -1,18 +1,51 @@
 import styled from "@emotion/styled";
-import { Button, Switch } from "antd";
+import { Button, Modal, Switch } from "antd";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { APP_ACTION_CREATORS } from "redux/actions/actionCreators";
 
-const Todo = ({ todo }) => {
+const Todo = ({ todo, isLoading }) => {
+  const dispatch = useDispatch();
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+
   return (
     <TodoS>
       <div>{todo.content}</div>
       <TodoActionsS>
-        <Switch checkedChildren="Done" checked={todo.isComplete} />
-        <Button danger type="primary">
+        <Switch
+          checkedChildren="Done"
+          checked={todo.isComplete}
+          onChange={() => {
+            dispatch(
+              APP_ACTION_CREATORS.requestToggleTodo({ id: todo.id, isComplete: !todo.isComplete })
+            );
+          }}
+        />
+        <Button danger type="primary" onClick={() => setDeleteModalVisible(true)}>
           Delete
         </Button>
       </TodoActionsS>
+      <Modal
+        visible={deleteModalVisible}
+        footer={[
+          <Button key="back" onClick={handleDeleteCancel}>
+            Cancel
+          </Button>,
+          <Button key="submit" type="primary" loading={isLoading} onClick={handleDeleteOk}>
+            Yes
+          </Button>
+        ]}>
+        Are you sure you want to delete this todo?
+      </Modal>
     </TodoS>
   );
+
+  function handleDeleteOk() {
+    dispatch(APP_ACTION_CREATORS.requestRemoveTodo(todo.id));
+  }
+  function handleDeleteCancel() {
+    setDeleteModalVisible(false);
+  }
 };
 
 export default Todo;
