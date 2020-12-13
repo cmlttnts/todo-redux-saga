@@ -19,6 +19,7 @@ const Todo = ({ todo, isLoading }) => {
         <TodoActionsStyled>
           <Switch
             checkedChildren="Done"
+            unCheckedChildren="Doing"
             checked={todo.isComplete}
             onChange={() => {
               dispatch(
@@ -104,6 +105,6 @@ const TodoActionsStyled = styled.div`
     margin-bottom: 5px;
   }
   & > button[role="switch"] {
-    width: 80%;
+    width: 90%;
   }
 `;
