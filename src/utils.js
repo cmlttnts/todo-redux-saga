@@ -50,6 +50,7 @@ export const SORT_FUNCS = {
   [SORT_OPTIONS.untilDeadline]: (todoA, todoB) => {
     if (todoA.isComplete) return 1;
     if (todoB.isComplete) return -1;
+    if (todoA.deadline || todoB.deadline) return 0;
     return todoA.deadline - todoB.deadline;
   }
 };
