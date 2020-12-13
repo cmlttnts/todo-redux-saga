@@ -81,7 +81,7 @@ export const REDUCER_ACTION_CREATORS = {
 
   updateTodoFailure() {
     return {
-      type: REDUCER_ACTIONS.INITAL_LOAD_FAILURE
+      type: REDUCER_ACTIONS.UPDATE_TODO_FAILURE
     };
   },
   userAckFailure() {

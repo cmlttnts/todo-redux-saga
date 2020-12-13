@@ -29,6 +29,7 @@ export default function rootReducer(state = INIT_STATE, action) {
       case REDUCER_ACTIONS.INITAL_LOAD_SUCCESS:
         draft.todos = action.payload;
         draft.isLoading.init = false;
+        draft.errors.init = false;
         break;
       case REDUCER_ACTIONS.INITAL_LOAD_FAILURE:
         draft.errors.init = true;

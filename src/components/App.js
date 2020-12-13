@@ -8,12 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { APP_ACTION_CREATORS } from "redux/actions/actionCreators";
 
 const App = () => {
-  const { todos, errors, isLoading } = useSelector(state => state);
-  console.dir({
-    todos,
-    errors,
-    isLoading
-  });
+  const { errors, isLoading } = useSelector(state => state);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(APP_ACTION_CREATORS.requestInitLoad());
