@@ -33,6 +33,7 @@ function* watchInitialLoad() {
 }
 
 function* addTodo(action) {
+  yield put(REDUCER_ACTION_CREATORS.initiateUpdateTodo());
   const newAction = { ...action };
   newAction.payload = { ...action.payload, createdAt: Date.now(), isComplete: false };
   const result = yield call(API.addTodoApi, newAction.payload);

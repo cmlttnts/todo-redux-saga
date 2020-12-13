@@ -29,6 +29,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <h1>Todo App</h1>
       <Todos />
     </div>
   );

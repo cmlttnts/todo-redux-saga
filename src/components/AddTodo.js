@@ -2,15 +2,17 @@ import styled from "@emotion/styled";
 import { Button, DatePicker, Input } from "antd";
 import SortSelect from "components/SortSelect";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { APP_ACTION_CREATORS } from "redux/actions/actionCreators";
 
 const { TextArea } = Input;
 
 const AddTodo = ({ onSortChange }) => {
+  const isLoading = useSelector(state => state.isLoading.update);
+  const dispatch = useDispatch();
+
   const [text, setText] = useState("");
   const [deadline, setDeadline] = useState("");
-  const dispatch = useDispatch();
 
   return (
     <AddTodoStyled>
@@ -44,6 +46,7 @@ const AddTodo = ({ onSortChange }) => {
         <Button onClick={() => setText("")}>Clear</Button>
         <Button
           type="primary"
+          loading={isLoading}
           onClick={() => {
             dispatch(
               APP_ACTION_CREATORS.requestAddTodo({
