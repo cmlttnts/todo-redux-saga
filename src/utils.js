@@ -15,14 +15,17 @@ export function getTimeUntilDeadline(deadline) {
   const [hours, hoursLeftover] = getDivisionAndRemainder(daysLeftover, MS_TO_HOUR);
   const minutes = Math.floor(hoursLeftover / MS_TO_MINUTE);
 
-  return formatDuration(
-    {
-      days,
-      hours,
-      minutes
-    },
-    { delimiter: "," }
-  );
+  return [
+    formatDuration(
+      {
+        days,
+        hours,
+        minutes
+      },
+      { delimiter: "," }
+    ),
+    diffInMs < 0
+  ];
 }
 
 function getDivisionAndRemainder(num, divider) {

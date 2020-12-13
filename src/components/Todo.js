@@ -9,6 +9,9 @@ const Todo = ({ todo, isLoading }) => {
   const dispatch = useDispatch();
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
+  const [timeUntilDeadline, isPassed] = todo.deadline
+    ? getTimeUntilDeadline(todo.deadline)
+    : [null, null];
   return (
     <TodoStyled isComplete={todo.isComplete}>
       <TodoInnerStyled>
@@ -40,7 +43,11 @@ const Todo = ({ todo, isLoading }) => {
           Are you sure you want to delete this todo?
         </Modal>
       </TodoInnerStyled>
-      <div>Until deadline: {getTimeUntilDeadline(todo.deadline)}</div>
+      {!todo.isComplete && timeUntilDeadline && (
+        <div className={`deadline ${isPassed && "passed-deadline"}`}>
+          Until deadline: {timeUntilDeadline} {isPassed && " ( Passed the deadline!)"}
+        </div>
+      )}
     </TodoStyled>
   );
 
@@ -57,12 +64,18 @@ export default Todo;
 const TodoStyled = styled.div`
   display: flex;
   flex-direction: column;
-  outline: 2px solid grey;
+  border: 2px solid grey;
+  border-radius: 4px;
   padding: 5px 10px;
-  margin: 10px 1rem;
+  margin: 10px 0;
   background-color: ${props => (props.isComplete ? "rgba(186, 252, 3, 0.6)" : "lavender")};
-  & > div:last-child {
+  & > .deadline {
     border-top: 2px solid grey;
+    padding-left: 5px;
+  }
+
+  & > .passed-deadline {
+    background-color: rgb(228, 115, 115);
   }
 `;
 

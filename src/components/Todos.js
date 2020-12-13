@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import AddTodo from "components/AddTodo";
 import Todo from "components/Todo";
 import { useSelector } from "react-redux";
 
@@ -12,6 +13,8 @@ const Todos = () => {
 
   return (
     <TodosStyled>
+      <AddTodo />
+
       {todos.map(todo => (
         <Todo key={todo.id} todo={todo} isLoading={isLoading.update} />
       ))}

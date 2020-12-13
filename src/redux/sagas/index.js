@@ -33,14 +33,15 @@ function* watchInitialLoad() {
 }
 
 function* addTodo(action) {
-  const result = yield call(API.addTodoApi, action.payload);
+  const newAction = { ...action };
+  newAction.payload = { ...action.payload, createdAt: Date.now(), isComplete: false };
+  const result = yield call(API.addTodoApi, newAction.payload);
   const actionCreator = result.error
     ? REDUCER_ACTION_CREATORS.updateTodoFailure
     : REDUCER_ACTION_CREATORS.addTodoSuccess;
   // jsonplaceholder would always return id:101, workaround that
   if (!result.error) {
     result.data.id = uuid();
-    result.data.createdAt = Date.now();
   }
   yield put(actionCreator(result.data));
 }

@@ -1,6 +1,16 @@
 import produce from "immer";
 import { REDUCER_ACTIONS } from "redux/actions";
 
+/**
+ * todo: {
+ *   id: string,
+ *   content: string,
+ *   createdAt: number, // unix timestamp in milliseconds
+ *   deadline: number, // unix timestamp in milliseconds
+ *   isComplete: boolean
+ * }
+ */
+
 const INIT_STATE = {
   todos: [],
   errors: {

@@ -19,6 +19,10 @@ const App = () => {
     dispatch(APP_ACTION_CREATORS.requestInitLoad());
   }, [dispatch]);
 
+  if (errors.init) {
+    return <p>Cannot reach the server, please try again after some time</p>;
+  }
+
   if (isLoading.init) {
     return (
       <LoadingContainerStyled>
