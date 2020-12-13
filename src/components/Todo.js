@@ -44,10 +44,12 @@ const Todo = ({ todo, isLoading }) => {
         </Modal>
       </TodoInnerStyled>
       {!todo.isComplete && timeUntilDeadline && (
-        <div className={`deadline ${isPassed && "passed-deadline"}`}>
-          Until deadline: {timeUntilDeadline} {isPassed && " ( Passed the deadline!)"}
+        <div className="deadline">
+          {isPassed && <span className="warn-deadline">!</span>}
+          Until deadline: {timeUntilDeadline}
         </div>
       )}
+      <div className="created-at">Created at: {new Date(todo.createdAt).toLocaleString()}</div>
     </TodoStyled>
   );
 
@@ -73,9 +75,17 @@ const TodoStyled = styled.div`
     border-top: 2px solid grey;
     padding-left: 5px;
   }
+  & > .created-at {
+    border-top: 2px solid grey;
+    padding-left: 5px;
+  }
 
-  & > .passed-deadline {
-    background-color: rgb(228, 115, 115);
+  & .warn-deadline {
+    padding: 0 4px;
+    margin-right: 4px;
+    font-size: 1.1rem;
+    color: red;
+    border: 2px dashed red;
   }
 `;
 

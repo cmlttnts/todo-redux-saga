@@ -60,7 +60,7 @@ export default function rootReducer(state = INIT_STATE, action) {
         if (removedTodoIndex > -1) draft.todos.splice(removedTodoIndex, 1);
         else console.error("Non-existing todo removal attempt");
         break;
-      // gather all crud operation failures except read
+      // gather all crud operation failures except first load
       case REDUCER_ACTIONS.UPDATE_TODO_FAILURE:
         draft.errors.update = true;
         break;

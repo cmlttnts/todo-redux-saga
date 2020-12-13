@@ -29,7 +29,27 @@ export function getTimeUntilDeadline(deadline) {
 }
 
 function getDivisionAndRemainder(num, divider) {
-  const division = Math.floor(num / divider);
+  const division = num >= 0 ? Math.floor(num / divider) : Math.ceil(num / divider);
   const remainder = num % divider;
   return [division, remainder];
 }
+
+export const SORT_OPTIONS = {
+  alphabetical: "Alphabetical",
+  createdAt: "Creation Time",
+  untilDeadline: "Until Deadline"
+};
+
+export const DEFAULT_SORT = SORT_OPTIONS.createdAt;
+
+export const SORT_FUNCS = {
+  [SORT_OPTIONS.alphabetical]: (todoA, todoB) => {
+    return todoA.content[0].toLowerCase().localeCompare(todoB.content[0].toLowerCase());
+  },
+  [SORT_OPTIONS.createdAt]: (todoA, todoB) => todoA.createdAt - todoB.createdAt,
+  [SORT_OPTIONS.untilDeadline]: (todoA, todoB) => {
+    if (todoA.isComplete) return 1;
+    if (todoB.isComplete) return -1;
+    return todoA.deadline - todoB.deadline;
+  }
+};

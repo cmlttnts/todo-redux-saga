@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 import { Button, DatePicker, Input } from "antd";
+import SortSelect from "components/SortSelect";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { APP_ACTION_CREATORS } from "redux/actions/actionCreators";
 
 const { TextArea } = Input;
 
-const AddTodo = () => {
+const AddTodo = ({ onSortChange }) => {
   const [text, setText] = useState("");
   const [deadline, setDeadline] = useState("");
   const dispatch = useDispatch();
@@ -37,6 +38,9 @@ const AddTodo = () => {
         </div>
       </div>
       <div className="add-todo-actions">
+        <label>
+          Sort: <SortSelect onSortSelect={onSortChange} />
+        </label>
         <Button onClick={() => setText("")}>Clear</Button>
         <Button
           type="primary"
@@ -73,8 +77,8 @@ const AddTodoStyled = styled.div`
     }
     @media (min-width: 768px) {
       flex-direction: row;
-      label > * {
-        margin-right: 10px;
+      label > .ant-picker {
+        margin-left: 0px;
       }
     }
   }
