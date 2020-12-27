@@ -1,6 +1,6 @@
 ## Todo app using redux-saga
 
-Trying to get comfortabl with redux-saga, immer, ant design
+Trying to get comfortable with redux-saga, immer, ant design
 
 Live version @ https://cmlttnts.github.io/todo-redux-saga/
 

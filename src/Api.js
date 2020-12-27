@@ -6,7 +6,11 @@ const API = {
     };
     try {
       const response = await fetch(url, options);
-      result.data = await response.json();
+      if (response.ok) {
+        result.data = await response.json();
+      } else {
+        result.error = true;
+      }
     } catch (error) {
       result.error = true;
     }
