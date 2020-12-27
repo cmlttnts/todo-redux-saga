@@ -66,6 +66,7 @@ export default function rootReducer(state = INIT_STATE, action) {
         break;
       case REDUCER_ACTIONS.USER_CONFIRMS_UPDATE_FAILURE:
         draft.errors.update = false;
+        draft.isLoading.update = false;
         break;
       default:
         break;

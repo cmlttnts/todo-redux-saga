@@ -33,6 +33,7 @@ const Todo = ({ todo, isLoading }) => {
         </TodoActionsStyled>
         <Modal
           visible={deleteModalVisible}
+          onCancel={handleDeleteCancel}
           footer={[
             <Button key="back" onClick={handleDeleteCancel}>
               Cancel
