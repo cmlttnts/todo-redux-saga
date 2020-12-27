@@ -48,8 +48,10 @@ export const SORT_FUNCS = {
   },
   [SORT_OPTIONS.createdAt]: (todoA, todoB) => todoA.createdAt - todoB.createdAt,
   [SORT_OPTIONS.untilDeadline]: (todoA, todoB) => {
-    if (todoA.isComplete || !todoA.deadline) return 1;
-    if (todoB.isComplete || !todoB.deadline) return -1;
+    if (todoA.isComplete) return 1;
+    if (todoB.isComplete) return -1;
+    if (!todoA.deadline) return 1;
+    if (!todoB.deadline) return -1;
     return todoA.deadline - todoB.deadline;
   }
 };
